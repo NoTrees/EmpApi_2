@@ -1,23 +1,10 @@
 Rails.application.routes.draw do
-  get 'work_times/index'
-
-  get 'work_times/show'
-
-  get 'work_times/create'
-
-  get 'work_times/update'
-
-  get 'work_times/destroy'
-
-  get 'employees/index'
-
-  get 'employees/show'
-
-  get 'employees/create'
-
-  get 'employees/update'
-
-  get 'employees/destroy'
+  namespace :api, path: '/', constraints: { subdomain: 'api' } do
+    namespace :v1, path: '/' do
+      resources :work_times
+      resources :employees
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

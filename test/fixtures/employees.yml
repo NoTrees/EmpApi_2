@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  division: MyString
-  authentication: MyString
-  address: MyString
+emily:
+  id: '12345'
+  name: 'Emily'
+  division: 'ERD'
+  authentication: '1234567890'
+  address: '#123 Drive Street'
 
-two:
-  name: MyString
-  division: MyString
-  authentication: MyString
-  address: MyString
+rose:
+  id: '67890'
+  name: 'Rose'
+  division: 'SSD'
+  authentication: '0987654321'
+  address: '#456 Boulevard Avenue'
