@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_id: 
+  time_of_scan: 2015-05-14 13:42:06
+  time_flag: MyString
+  work_date: 2015-05-14
+
+two:
+  employee_id: 
+  time_of_scan: 2015-05-14 13:42:06
+  time_flag: MyString
+  work_date: 2015-05-14
