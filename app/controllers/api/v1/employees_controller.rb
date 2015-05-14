@@ -10,13 +10,20 @@ module API::V1
         employees = employees.where(division: division)
       end
 
-      render json: employees, status: :ok
+      respond_to do |format|
+        format.json { render json: employees, status: :ok }
+        format.xml { render xml: employees, status: :ok }
+      end
     end
 
     #GET /employees/:id
     def show
       employee = Employee.find(params[:id])
-      render json: employee, status: :ok
+
+      respond_to do |format|
+        format.json { render json: employee, status: :ok }
+        format.xml { render xml: employee, status: :ok }
+      end
     end
 
     def create

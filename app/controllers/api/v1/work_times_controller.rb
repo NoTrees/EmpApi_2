@@ -14,7 +14,10 @@ module API::V1
         work_times = work_times.where(work_date: work_date)
       end      
 
-      render json: work_times, status: :ok
+      respond_to do |format|
+        format.json { render json: work_times, status: :ok }
+        format.xml { render xml: work_times, status: :ok }
+      end
     end
 
     def show
