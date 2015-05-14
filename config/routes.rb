@@ -1,4 +1,24 @@
 Rails.application.routes.draw do
+  get 'work_times/index'
+
+  get 'work_times/show'
+
+  get 'work_times/create'
+
+  get 'work_times/update'
+
+  get 'work_times/destroy'
+
+  get 'employees/index'
+
+  get 'employees/show'
+
+  get 'employees/create'
+
+  get 'employees/update'
+
+  get 'employees/destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
