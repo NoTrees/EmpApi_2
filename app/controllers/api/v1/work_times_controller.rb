@@ -21,9 +21,18 @@ module API::V1
     end
 
     def show
+      work_time = WorkTime.find(params[:id])
+      render json: work_time, status: :ok
     end
 
+    #POST /work_time
     def create
+      work_time = WorkTime.new(work_time_params)
+      if work_time.save
+        render json: work_time, status: :created, location: work_time
+      else
+        render json: work_time.errors, status: :unprocessable_entity
+      end
     end
 
     def update
@@ -31,5 +40,10 @@ module API::V1
 
     def destroy
     end
+
+    private
+      def work_time_params
+        params.require(:work_time).permit(:employee_id, :time_of_scan, :time_flag, :work_date)
+      end
   end
 end

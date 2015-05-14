@@ -26,7 +26,14 @@ module API::V1
       end
     end
 
+    #POST /employees
     def create
+      employee = Employee.new(employee_params)
+      if employee.save
+          render json: employee, status: :created, location: employee
+      else
+          render json: employee.errors, status: :unprocessable_entity
+      end
     end
 
     def update
@@ -34,5 +41,10 @@ module API::V1
 
     def destroy
     end
+
+    private
+      def employee_params
+        params.require(:employee).permit(:id, :name, :division, :authentication, :address)
+      end
   end
 end

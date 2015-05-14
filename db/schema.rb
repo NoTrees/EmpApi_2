@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150514054206) do
     t.datetime "updated_at",     null: false
   end
 
-  create_table "work_times", id: false, force: :cascade do |t|
+  create_table "work_times", force: :cascade do |t|
     t.integer  "employee_id"
     t.time     "time_of_scan"
     t.string   "time_flag"

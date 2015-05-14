@@ -1,6 +1,6 @@
 class CreateWorkTimes < ActiveRecord::Migration
   def change
-    create_table :work_times, id: false do |t|
+    create_table :work_times do |t|
       t.references :employee, index: true
       t.time :time_of_scan
       t.string :time_flag
