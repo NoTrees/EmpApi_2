@@ -41,6 +41,8 @@ module API::V1
 
       if employee.update(employee_params)
         render json: employee, status: :ok
+      else
+        render json: employee.errors, status: :unprocessable_entity
       end
     end
 

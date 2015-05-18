@@ -40,6 +40,8 @@ module API::V1
 
       if work_time.update(work_time_params)
         render json: work_time, status: :ok
+      else
+        render json: work_time.errors, status: :unprocessable_entity
       end
     end
 
