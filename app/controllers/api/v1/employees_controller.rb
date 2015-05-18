@@ -47,6 +47,9 @@ module API::V1
     end
 
     def destroy
+      employee = Employee.find(params[:id])
+      employee.destroy
+      head :no_content
     end
 
     private

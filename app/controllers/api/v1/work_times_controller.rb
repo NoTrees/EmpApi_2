@@ -46,6 +46,9 @@ module API::V1
     end
 
     def destroy
+      work_time = WorkTime.find(params[:id])
+      work_time.destroy
+      head :no_content
     end
 
     private
