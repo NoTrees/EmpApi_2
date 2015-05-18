@@ -36,6 +36,11 @@ module API::V1
     end
 
     def update
+      work_time = WorkTime.find(params[:id])
+
+      if work_time.update(work_time_params)
+        render json: work_time, status: :ok
+      end
     end
 
     def destroy

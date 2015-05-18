@@ -37,6 +37,11 @@ module API::V1
     end
 
     def update
+      employee = Employee.find(params[:id])
+
+      if employee.update(employee_params)
+        render json: employee, status: :ok
+      end
     end
 
     def destroy
