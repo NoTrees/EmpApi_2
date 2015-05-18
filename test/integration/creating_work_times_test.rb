@@ -19,7 +19,7 @@ class CreatingWorkTimesTest < ActionDispatch::IntegrationTest
 		assert_equal Mime::JSON, response.content_type
 
 		work_time = json(response.body)
-		assert_equal api_v1_work_time_url(work_time[:id]), response.location
+		assert_equal api_work_time_url(work_time[:id]), response.location
 	end
 
 	test 'prevents creation if employee_id is nil' do

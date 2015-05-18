@@ -12,7 +12,7 @@ class CreatingEmployeesTest < ActionDispatch::IntegrationTest
 		assert_equal Mime::JSON, response.content_type
 
 		employee = json(response.body)
-		assert_equal api_v1_employee_url(employee[:id]), response.location
+		assert_equal api_employee_url(employee[:id]), response.location
 	end
 
 	test 'prevents creation if id is nil' do

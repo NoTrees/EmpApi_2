@@ -1,5 +1,5 @@
 module API::V1
-  class EmployeesController < ApplicationController
+  class EmployeesController < VersionController
     
     #GET /employees
     #GET /employees.json
@@ -30,7 +30,7 @@ module API::V1
     def create
       employee = Employee.new(employee_params)
       if employee.save
-          render json: employee, status: :created, location: [ :api, :v1, employee ]
+          render json: employee, status: :created, location: [ :api, employee ]
       else
           render json: employee.errors, status: :unprocessable_entity
       end
