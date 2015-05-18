@@ -29,7 +29,7 @@ module API::V1
     def create
       work_time = WorkTime.new(work_time_params)
       if work_time.save
-        render json: work_time, status: :created, location: work_time
+        render json: work_time, status: :created, location: [ :api, :v1, work_time ]
       else
         render json: work_time.errors, status: :unprocessable_entity
       end
