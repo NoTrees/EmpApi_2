@@ -1,6 +1,6 @@
 module API::V1
   class EmployeesController < VersionController
-    
+
     #GET /employees
     #GET /employees.json
     def index

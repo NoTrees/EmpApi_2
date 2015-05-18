@@ -1,6 +1,6 @@
 module API::V1
   class WorkTimesController < VersionController
-    
+
     #GET /work_times
     #GET /work_times.json
     def index

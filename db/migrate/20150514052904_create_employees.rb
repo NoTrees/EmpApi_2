@@ -5,6 +5,7 @@ class CreateEmployees < ActiveRecord::Migration
       t.string :division, null: false
       t.string :authentication, null: false
       t.string :address
+      t.text :auth_token
 
       t.timestamps null: false
     end
