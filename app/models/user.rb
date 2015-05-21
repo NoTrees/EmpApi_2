@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
 	before_create :set_auth_token
+	validates_presence_of :id, :name, :password
+	validates :id, uniqueness: true
+	validates :password, length: { minimum: 7 }
 
 	private
 	  	def set_auth_token

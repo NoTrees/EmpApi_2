@@ -1,7 +1,8 @@
 require 'api_version'
 
 Rails.application.routes.draw do
-  root 'application#hello'
+  resources :users
+  root 'users#index'
 
   namespace :api, path: '/' do#, constraints: { subdomain: 'api' } do
     scope module: :v1, constraints: ApiVersion.new('v1', true) do
