@@ -1,5 +1,28 @@
-<h1>New Regen</h1>
+<p><%= notice %></p>
 
-<%= render 'form' %>
+<h1>New Work Time</h1>
 
-<%= link_to 'Back', "/work_times" %>
+<%= form_for(@work_time) do |f| %>
+  <div>
+    <%= f.label :employee_id %><br>
+    <%= f.text_field :employee_id %>
+  </div>
+  <div>
+    <%= f.label :time_of_scan %><br>
+    <%= f.text_field :time_of_scan %>
+  </div>
+  <div>
+    <%= f.label :time_flag %><br>
+    <%= f.text_field :time_flag %>
+  </div>
+  <div>
+    <%= f.label :work_date %><br>
+    <%= f.text_field :work_date %>
+  </div></br>
+  
+  <div>
+    <%= f.submit %>
+  </div></br>
+
+  <%= link_to 'Back', api_work_times_path %>
+<% end %>

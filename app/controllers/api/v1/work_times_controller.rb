@@ -31,13 +31,26 @@ module API::V1
       end
     end
 
+    def new
+      @work_time = WorkTime.new
+
+      render "work_times/new"
+    end
+
     #POST /work_time
     def create
       @work_time = WorkTime.new(work_time_params)
       if @work_time.save
-        render json: @work_time, status: :created, location: [ :api, @work_time ]
+        respond_to do |format|
+          format.html { redirect_to work_times_path, notice: "work time created!" }
+          format.json { render json: @work_time, status: :created, location: [ :api, @work_time ] }
+          format.xml { render xml: @work_time, status: :created, location: [ :api, @work_time ] }
+        end
       else
-        render json: @work_time.errors, status: :unprocessable_entity
+        respond_to do |format|
+          format.html { redirect_to new_work_time_path, notice: @work_time.errors }
+          format.json { render json: @work_time.errors, status: :unprocessable_entity }
+        end
       end
     end
 

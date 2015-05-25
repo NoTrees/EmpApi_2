@@ -17,6 +17,12 @@ module API::V1
       end
     end
 
+    def new
+      @employee = Employee.new
+
+      render "employees/new"
+    end
+
     #GET /employees/:id
     def show
       @employee = Employee.find(params[:id])
@@ -32,9 +38,16 @@ module API::V1
     def create
       @employee = Employee.new(employee_params)
       if @employee.save
-          render json: @employee, status: :created, location: [ :api, @employee ]
+          respond_to do |format|
+            format.html { redirect_to employees_path, status: :ok }
+            format.json { render json: @employee, status: :created, location: [ :api, @employee ] }
+            format.xml { render xml: @employee, status: :created, location: [ :api, @employee ] }
+          end
       else
-          render json: @employee.errors, status: :unprocessable_entity
+          respond_to do |format|
+            format.html { redirect_to new_employee_path, notice: @employee.errors }
+            format.json { render json: @employee.errors, status: :unprocessable_entity }
+          end
       end
     end
 
