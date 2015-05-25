@@ -11,6 +11,7 @@ module API::V1
       end
 
       respond_to do |format|
+        format.html { render "employees/index", status: :ok }
         format.json { render json: @employees, status: :ok }
         format.xml { render xml: @employees, status: :ok }
       end
@@ -21,6 +22,7 @@ module API::V1
       @employee = Employee.find(params[:id])
 
       respond_to do |format|
+        format.html { render "employees/show", status: :ok }
         format.json { render json: @employee, status: :ok }
         format.xml { render xml: @employee, status: :ok }
       end

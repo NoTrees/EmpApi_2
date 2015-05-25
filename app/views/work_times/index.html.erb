@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Employee Work Times</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Employee Id</th>
+      <th>Time of Scan</th>
+      <th>Time Flag</th>
+      <th>Work Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @work_times.each do |work_time| %>
+      <tr>
+        <td><%= work_time.employee_id %></td>
+        <td><%= work_time.time_of_scan.strftime("%H:%M:%S") %></td>
+        <td><%= work_time.time_flag %></td>
+        <td><%= work_time.work_date %></td>
+        <td><%= link_to 'Show', "/work_times/#{work_time.id}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back to Home', root_path %>

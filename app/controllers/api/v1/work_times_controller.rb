@@ -15,6 +15,7 @@ module API::V1
       end      
 
       respond_to do |format|
+        format.html { render "work_times/index", status: :ok }
         format.json { render json: @work_times, status: :ok }
         format.xml { render xml: @work_times, status: :ok }
       end
@@ -22,7 +23,12 @@ module API::V1
 
     def show
       @work_time = WorkTime.find(params[:id])
-      render json: @work_time, status: :ok
+
+      respond_to do |format|
+        format.html { render "work_times/show", status: :ok }
+        format.json { render json: @work_times, status: :ok }
+        format.xml { render xml: @work_times, status: :ok }
+      end
     end
 
     #POST /work_time

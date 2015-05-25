@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee ID:</strong>
+  <%= @work_time.employee_id %>
+</p>
+
+<p>
+  <strong>Time of Scan:</strong>
+  <%= @work_time.time_of_scan.strftime("%H:%M:%S") %>
+</p>
+
+<p>
+  <strong>Time Flag:</strong>
+  <%= @work_time.time_flag %>
+</p>
+
+<p>
+  <strong>Work Date:</strong>
+  <%= @work_time.work_date %>
+</p>
+
+<%= link_to 'Back', "/work_times" %>
