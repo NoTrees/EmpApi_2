@@ -12,7 +12,7 @@ module API::V1
 						work_date: '2015-05-14' 
 					} 
 				}.to_json, 
-				{ 'Authorization' => token_header(@user.auth_token), 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+				{ 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
 
 			assert_equal 201, response.status
 			assert_equal Mime::JSON, response.content_type
@@ -24,7 +24,7 @@ module API::V1
 		test 'prevents creation if employee_id is nil' do
 			post '/work_times', 
 				{ work_time: { employee_id: nil, time_of_scan: '08:00:00', time_flag: 'logged_in', work_date: '2015-05-14' } }.to_json, 
-				{ 'Authorization' => token_header(@user.auth_token), 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+				{ 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
 
 			assert_equal 422, response.status
 			assert_equal Mime::JSON, response.content_type
@@ -33,7 +33,7 @@ module API::V1
 		test 'prevents creation if employee does not exist' do
 			post '/work_times', 
 				{ work_time: { employee_id: '45543', time_of_scan: '08:00:00', time_flag: 'logged_in', work_date: '2015-05-14' } }.to_json, 
-				{ 'Authorization' => token_header(@user.auth_token), 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+				{ 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
 
 			assert_equal 422, response.status
 			assert_equal Mime::JSON, response.content_type

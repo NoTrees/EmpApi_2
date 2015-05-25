@@ -4,22 +4,22 @@ emily_in:
   employee_id: "12345"
   time_of_scan: '08:00:00'
   time_flag: 'logged_in'
-  work_date: 2015-05-14
+  work_date: '2015-05-14'
 
 emily_out:
   employee_id: "12345"
   time_of_scan: '17:00:00'
   time_flag: 'logged_out'
-  work_date: 2015-05-14
+  work_date: '2015-05-14'
 
 rose_in:
   employee_id: "67890"
   time_of_scan: '08:00:00'
   time_flag: 'logged_in'
-  work_date: 2015-05-15
+  work_date: '2015-05-15'
 
 rose_out:
   employee_id: "67890"
   time_of_scan: '17:00:00'
   time_flag: 'logged_out'
-  work_date: 2015-05-15  
+  work_date: '2015-05-15' 
