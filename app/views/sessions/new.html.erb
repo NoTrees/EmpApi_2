@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Log in</h1>
+
+<div>
+	<div>
+		<%= form_for(:session, url: login_path) do |f| %>
+			<%= f.label :id %><br>
+			<%= f.text_field :id %><br><br>
+
+			<%= f.label :password %><br>
+			<%= f.password_field :password %><br><br>
+
+			<%= f.submit "Log in!" %>
+		<% end %>
+	</div>
+</div>

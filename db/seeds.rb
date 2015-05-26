@@ -13,7 +13,8 @@ Employee.create(
   	name: 'Emily',
   	division: 'ERD',
   	authentication: '1234567890',
-  	address: '#123 Drive Street'
+  	address: '#123 Drive Street',
+    is_admin: true
   	)
 
 WorkTime.create(

@@ -11,15 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514054206) do
+ActiveRecord::Schema.define(version: 20150526064303) do
 
   create_table "employees", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.string   "division",       null: false
-    t.string   "authentication", null: false
+    t.string   "name",                          null: false
+    t.string   "division",                      null: false
+    t.string   "authentication"
     t.string   "address"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "is_admin",        default: "f"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "password_digest"
   end
 
   create_table "work_times", force: :cascade do |t|

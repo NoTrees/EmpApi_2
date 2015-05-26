@@ -41,24 +41,6 @@ module API::V1
 			assert_equal Mime::JSON, response.content_type
 		end
 
-		test 'prevents creation if authentication is nil' do
-			post '/employees', 
-				{ employee: { id: '45543', name: 'Jason', division: 'ASF', authentication: nil, address: '#333 Side Coast' } }.to_json, 
-				{ 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
-
-			assert_equal 422, response.status
-			assert_equal Mime::JSON, response.content_type
-		end
-
-		test 'prevents creation if authentication is too short' do
-			post '/employees', 
-				{ employee: { id: '45543', name: 'Jason', division: 'ASF', authentication: '67', address: '#333 Side Coast' } }.to_json, 
-				{ 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
-
-			assert_equal 422, response.status
-			assert_equal Mime::JSON, response.content_type
-		end
-
 		test 'prevents creation if id is is taken' do
 			post '/employees', 
 				{ employee: { id: '12345', name: 'Jason', division: 'ASF', authentication: '67', address: '#333 Side Coast' } }.to_json, 

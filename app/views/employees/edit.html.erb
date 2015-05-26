@@ -1,3 +1,5 @@
+<p id="notice"><%= notice %></p>
+
 <h1>Editing Employee</h1>
 
 <%= form_for @employee, url: api_employee_path do |f| %>
@@ -14,12 +16,16 @@
     <%= f.text_field :division %>
   </div>
   <div>
-    <%= f.label :authentication %><br>
-    <%= f.text_field :authentication %>
-  </div>
-  <div>
     <%= f.label :address %><br>
     <%= f.text_field :address %>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+  </div>
+  <div>
+    <%= f.label :is_admin %><br>
+    <%= f.text_field :is_admin %>
   </div></br>
 
   <div>

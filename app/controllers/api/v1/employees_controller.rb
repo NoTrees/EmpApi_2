@@ -10,6 +10,10 @@ module API::V1
         @employees = @employees.where(division: division)
       end
 
+      if is_admin = params[:is_admin]
+        @employees = @employees.where(is_admin: is_admin)
+      end
+
       respond_to do |format|
         format.html { render "employees/index", status: :ok }
         format.json { render json: @employees, status: :ok }
@@ -45,7 +49,7 @@ module API::V1
           end
       else
           respond_to do |format|
-            format.html { redirect_to new_api_employee_path, notice: @employee.errors }
+            format.html { redirect_to new_api_employee_path, notice: @employee.errors.full_messages }
             format.json { render json: @employee.errors, status: :unprocessable_entity }
           end
       end
@@ -67,7 +71,7 @@ module API::V1
         end
       else
         respond_to do |format|
-          format.html { redirect_to new_api_employee_path, notice: @employee.errors }
+          format.html { redirect_to edit_api_employee_path(@employee), notice: @employee.errors.full_messages }
           format.json { render json: @employee.errors, status: :unprocessable_entity }
         end
       end
@@ -84,7 +88,7 @@ module API::V1
 
     private
       def employee_params
-        params.require(:employee).permit(:id, :name, :division, :authentication, :address)
+        params.require(:employee).permit(:id, :name, :division, :authentication, :address, :password, :password_confirmation, :is_admin)
       end
   end
 end
