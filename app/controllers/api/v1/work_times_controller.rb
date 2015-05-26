@@ -21,6 +21,12 @@ module API::V1
       end
     end
 
+    def new
+      @work_time = WorkTime.new
+
+      render "work_times/new"
+    end
+
     def show
       @work_time = WorkTime.find(params[:id])
 
@@ -31,43 +37,52 @@ module API::V1
       end
     end
 
-    def new
-      @work_time = WorkTime.new
-
-      render "work_times/new"
-    end
-
     #POST /work_time
     def create
       @work_time = WorkTime.new(work_time_params)
       if @work_time.save
         respond_to do |format|
-          format.html { redirect_to work_times_path, notice: "work time created!" }
+          format.html { redirect_to api_work_times_path, notice: "work time created!" }
           format.json { render json: @work_time, status: :created, location: [ :api, @work_time ] }
           format.xml { render xml: @work_time, status: :created, location: [ :api, @work_time ] }
         end
       else
         respond_to do |format|
-          format.html { redirect_to new_work_time_path, notice: @work_time.errors }
+          format.html { redirect_to new_api_work_time_path, notice: @work_time.errors }
           format.json { render json: @work_time.errors, status: :unprocessable_entity }
         end
       end
+    end
+
+    def edit
+      @work_time = WorkTime.find(params[:id])
+
+      render "work_times/edit"
     end
 
     def update
       @work_time = WorkTime.find(params[:id])
 
       if @work_time.update(work_time_params)
-        render json: @work_time, status: :ok
+        respond_to do |format|
+          format.html { redirect_to api_work_time_path, notice: "Successfully edited work time!" }
+          format.json { render json: @work_time, status: :ok }
+        end
       else
-        render json: @work_time.errors, status: :unprocessable_entity
+        respond_to do |format|
+          format.html { redirect_to new_api_work_time_path, notice: @work_times.errors }
+          format.json { render json: @work_time.errors, status: :unprocessable_entity }
+        end
       end
     end
 
     def destroy
       @work_time = WorkTime.find(params[:id])
       @work_time.destroy
-      head :no_content
+      respond_to do |format|
+        format.html { redirect_to api_work_times_path, notice: "Successfully deleted work time!" }
+        format.json { head :no_content }
+      end
     end
 
     private

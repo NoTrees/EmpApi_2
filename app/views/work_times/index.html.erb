@@ -20,7 +20,9 @@
         <td><%= work_time.time_of_scan.strftime("%H:%M:%S") %></td>
         <td><%= work_time.time_flag %></td>
         <td><%= work_time.work_date %></td>
-        <td><%= link_to 'Show', "/work_times/#{work_time.id}" %></td>
+        <td><%= link_to 'Show', api_work_time_path(work_time) %></td>
+        <td> | <%= link_to 'Edit', edit_api_work_time_path(work_time) %></td>
+        <td> | <%= link_to 'Delete', api_work_time_path(work_time), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,6 +1,31 @@
 <h1>Editing Employee</h1>
 
-<%= render 'form' %>
+<%= form_for @employee, url: api_employee_path do |f| %>
+  <div>
+    <%= f.label :id %><br>
+    <%= f.text_field :id %>
+  </div>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :division %><br>
+    <%= f.text_field :division %>
+  </div>
+  <div>
+    <%= f.label :authentication %><br>
+    <%= f.text_field :authentication %>
+  </div>
+  <div>
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div></br>
 
-<%= link_to 'Show', @employee %> |
-<%= link_to 'Back', "/employees" %>
+  <div>
+    <%= f.submit %>
+  </div></br>
+
+	<%= link_to 'Show', api_employee_path(@employee) %> |
+	<%= link_to 'Back', api_employees_path %>
+<% end %>

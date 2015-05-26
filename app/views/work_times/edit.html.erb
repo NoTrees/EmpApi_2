@@ -1,5 +1,27 @@
 <h1>Editing Work Time</h1>
 
-<%= render 'form' %>
+<%= form_for @work_time, url: api_work_time_path do |f| %>
+  <div>
+    <%= f.label :employee_id %><br>
+    <%= f.text_field :employee_id %>
+  </div>
+  <div>
+    <%= f.label :time_of_scan %><br>
+    <%= f.datetime_field :time_of_scan %>
+  </div>
+  <div>
+    <%= f.label :time_flag %><br>
+    <%= f.text_field :time_flag %>
+  </div>
+  <div>
+    <%= f.label :work_date %><br>
+    <%= f.date_field :work_date %>
+  </div></br>
 
-<%= link_to 'Back', api_work_times_path %>
+  <div>
+    <%= f.submit %>
+  </div></br>
+
+	<%= link_to 'Show', api_work_time_path(@work_time) %> |
+	<%= link_to 'Back', api_work_times_path %>
+<% end %>

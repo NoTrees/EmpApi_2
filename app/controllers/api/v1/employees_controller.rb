@@ -7,7 +7,7 @@ module API::V1
       @employees = Employee.all
 
       if division = params[:division]
-        @employees = employees.where(division: division)
+        @employees = @employees.where(division: division)
       end
 
       respond_to do |format|
@@ -39,32 +39,47 @@ module API::V1
       @employee = Employee.new(employee_params)
       if @employee.save
           respond_to do |format|
-            format.html { redirect_to employees_path, status: :ok }
+            format.html { redirect_to api_employees_path, notice: "Successfully created employee!" }
             format.json { render json: @employee, status: :created, location: [ :api, @employee ] }
             format.xml { render xml: @employee, status: :created, location: [ :api, @employee ] }
           end
       else
           respond_to do |format|
-            format.html { redirect_to new_employee_path, notice: @employee.errors }
+            format.html { redirect_to new_api_employee_path, notice: @employee.errors }
             format.json { render json: @employee.errors, status: :unprocessable_entity }
           end
       end
+    end
+
+    def edit
+      @employee = Employee.find(params[:id])
+
+      render "employees/edit"
     end
 
     def update
       @employee = Employee.find(params[:id])
 
       if @employee.update(employee_params)
-        render json: @employee, status: :ok
+        respond_to do |format|
+          format.html { redirect_to api_employee_path, notice: "Successfully Edited Employee!" }
+          format.json { render json: @employee, status: :ok }
+        end
       else
-        render json: @employee.errors, status: :unprocessable_entity
+        respond_to do |format|
+          format.html { redirect_to new_api_employee_path, notice: @employee.errors }
+          format.json { render json: @employee.errors, status: :unprocessable_entity }
+        end
       end
     end
 
     def destroy
       @employee = Employee.find(params[:id])
       @employee.destroy
-      head :no_content
+      respond_to do |format|
+        format.html { redirect_to api_employees_path, notice: "Successfully deleted employee!" }
+        format.json { head :no_content }
+      end
     end
 
     private
