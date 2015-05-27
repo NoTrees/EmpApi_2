@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= "#{@employee.name}'s Profile" %></h1>
+
 <p>
   <strong>ID:</strong>
   <%= @employee.id %>
@@ -16,14 +18,13 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @employee.password %>
-</p>
-
-<p>
   <strong>Address:</strong>
   <%= @employee.address %>
 </p>
 
 <%= link_to 'Edit', edit_api_employee_path(@employee) %>
-<%= link_to 'Back', api_employees_path %>
+<% if current_user.is_admin.to_s == "true" %>
+  | <%= link_to 'Back', api_employees_path %>
+<% else %>
+  | <%= link_to 'Back to Home', root_path %>
+<% end %>

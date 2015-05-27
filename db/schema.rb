@@ -14,13 +14,13 @@
 ActiveRecord::Schema.define(version: 20150526064303) do
 
   create_table "employees", force: :cascade do |t|
-    t.string   "name",                          null: false
-    t.string   "division",                      null: false
+    t.string   "name",                              null: false
+    t.string   "division",                          null: false
     t.string   "authentication"
     t.string   "address"
-    t.string   "is_admin",        default: "f"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.string   "is_admin",        default: "false"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "password_digest"
   end
 

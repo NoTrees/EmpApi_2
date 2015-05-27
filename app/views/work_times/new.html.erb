@@ -24,5 +24,9 @@
     <%= f.submit %>
   </div></br>
 
-  <%= link_to 'Back', api_work_times_path %>
+  <% if current_user.is_admin.to_s == "true" %>
+    <%= link_to 'Back', api_work_times_path %>
+  <% else %>
+    <%= link_to 'Back to my work times', api_work_times_path(employee_id: @current_user.id) %>
+  <% end %>
 <% end %>

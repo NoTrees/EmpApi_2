@@ -1,5 +1,6 @@
 module API::V1
   class EmployeesController < VersionController
+    before_action :correct_employee
 
     #GET /employees
     #GET /employees.json
@@ -15,9 +16,13 @@ module API::V1
       end
 
       respond_to do |format|
-        format.html { render "employees/index", status: :ok }
-        format.json { render json: @employees, status: :ok }
-        format.xml { render xml: @employees, status: :ok }
+        if @current_user.is_admin == "true"
+          format.html { render "employees/index", status: :ok }
+          format.json { render json: @employees, status: :ok }
+          format.xml { render xml: @employees, status: :ok }
+        else
+          format.html { redirect_to root_path, notice: "Can't do that! Not an Admin" }
+        end
       end
     end
 
@@ -89,6 +94,11 @@ module API::V1
     private
       def employee_params
         params.require(:employee).permit(:id, :name, :division, :authentication, :address, :password, :password_confirmation, :is_admin)
+      end
+
+      def correct_employee
+        employee = Employee.find_by(id: params[:id])
+        redirect_to root_path, notice: "Can't do that!" unless ( employee == @current_user || @current_user.is_admin == "true" )
       end
   end
 end

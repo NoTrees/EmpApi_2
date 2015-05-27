@@ -31,9 +31,13 @@ module API::V1
       @work_time = WorkTime.find(params[:id])
 
       respond_to do |format|
-        format.html { render "work_times/show", status: :ok }
-        format.json { render json: @work_times, status: :ok }
-        format.xml { render xml: @work_times, status: :ok }
+        if @current_user.is_admin == "true"
+          format.html { render "work_times/show", status: :ok }
+          format.json { render json: @work_times, status: :ok }
+          format.xml { render xml: @work_times, status: :ok }
+        else
+          format.html { redirect_to root_path, notice: "Can't do that! Not an Admin" }
+        end
       end
     end
 
@@ -42,7 +46,11 @@ module API::V1
       @work_time = WorkTime.new(work_time_params)
       if @work_time.save
         respond_to do |format|
-          format.html { redirect_to api_work_times_path, notice: "work time created!" }
+          if current_user.is_admin == "true"
+            format.html { redirect_to api_work_times_path, notice: "work time created!" }  
+          else
+            format.html { redirect_to api_work_times_path(employee_id: @current_user.id), notice: "work time created!" }
+          end
           format.json { render json: @work_time, status: :created, location: [ :api, @work_time ] }
           format.xml { render xml: @work_time, status: :created, location: [ :api, @work_time ] }
         end

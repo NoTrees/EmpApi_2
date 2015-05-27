@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<% if current_user.is_admin.to_s == "true" %>
+  <td><%= link_to "Admin #{current_user.name}'s Profile", api_employee_path(current_user) %></td>
+<% else %>
+  <td><%= link_to "#{current_user.name}'s Profile", api_employee_path(current_user) %></td>
+<% end %>
+<td> | <%= link_to "Log Out", logout_path, method: :delete %></td>
+
 <h1>Listing Employee Work Times</h1>
 
 <table>
@@ -20,9 +27,13 @@
         <td><%= work_time.time_of_scan.strftime("%H:%M:%S") %></td>
         <td><%= work_time.time_flag %></td>
         <td><%= work_time.work_date %></td>
-        <td><%= link_to 'Show', api_work_time_path(work_time) %></td>
-        <td> | <%= link_to 'Edit', edit_api_work_time_path(work_time) %></td>
-        <td> | <%= link_to 'Delete', api_work_time_path(work_time), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if logged_in? %>
+          <% if current_user.is_admin.to_s == "true" %>
+            <td><%= link_to 'Show', api_work_time_path(work_time) %></td>
+            <td> | <%= link_to 'Edit', edit_api_work_time_path(work_time) %></td>
+            <td> | <%= link_to 'Delete', api_work_time_path(work_time), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

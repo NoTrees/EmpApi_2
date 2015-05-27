@@ -3,5 +3,5 @@ class Employee < ActiveRecord::Base
   validates_presence_of :id, :name, :division
   validates :id, uniqueness: true
   has_secure_password
-  validates :password, presence: true, length: { minimum: 7 }
+  validates :password, presence: true, length: { minimum: 7 }, allow_nil: true
 end

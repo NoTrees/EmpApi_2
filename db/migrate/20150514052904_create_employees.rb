@@ -5,7 +5,7 @@ class CreateEmployees < ActiveRecord::Migration
       t.string :division, null: false
       t.string :authentication
       t.string :address
-      t.string :is_admin, default: false
+      t.string :is_admin, default: "false"
 
       t.timestamps null: false
     end

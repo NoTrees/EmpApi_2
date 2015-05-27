@@ -3,35 +3,42 @@
 <h1>Editing Employee</h1>
 
 <%= form_for @employee, url: api_employee_path do |f| %>
-  <div>
-    <%= f.label :id %><br>
-    <%= f.text_field :id %>
-  </div>
+  <% if current_user.is_admin.to_s == "true" %>
+    <div>
+      <%= f.label :id %><br>
+      <%= f.text_field :id %>
+    </div>
+  <% end %>
   <div>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <div>
-    <%= f.label :division %><br>
-    <%= f.text_field :division %>
-  </div>
+  <% if current_user.is_admin.to_s == "true" %>
+    <div>
+      <%= f.label :division %><br>
+      <%= f.text_field :division %>
+    </div>
+  <% end %>
   <div>
     <%= f.label :address %><br>
     <%= f.text_field :address %>
   </div>
-  <div>
-    <%= f.label :password %>
-    <%= f.text_field :password %>
-  </div>
-  <div>
-    <%= f.label :is_admin %><br>
-    <%= f.text_field :is_admin %>
-  </div></br>
 
-  <div>
+  <% if current_user.is_admin.to_s == "true" %>
+    <div>
+      <%= f.label :is_admin %><br>
+      <%= f.text_field :is_admin %>
+    </div>
+  <% end %>
+
+  </br><div>
     <%= f.submit %>
   </div></br>
 
-	<%= link_to 'Show', api_employee_path(@employee) %> |
-	<%= link_to 'Back', api_employees_path %>
+	<%= link_to 'Show Profile', api_employee_path(@employee) %> |
+	<% if current_user.is_admin.to_s == "true" %>
+    <%= link_to 'Back', api_employees_path %>
+  <% else %>
+    <%= link_to 'Back to Home', root_path %>
+  <% end %>
 <% end %>
