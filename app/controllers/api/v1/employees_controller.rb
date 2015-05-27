@@ -16,13 +16,9 @@ module API::V1
       end
 
       respond_to do |format|
-        if @current_user.is_admin == "true"
-          format.html { render "employees/index", status: :ok }
-          format.json { render json: @employees, status: :ok }
-          format.xml { render xml: @employees, status: :ok }
-        else
-          format.html { redirect_to root_path, notice: "Can't do that! Not an Admin" }
-        end
+        format.html { render "employees/index", status: :ok }
+        format.json { render json: @employees, status: :ok }
+        format.xml { render xml: @employees, status: :ok }
       end
     end
 

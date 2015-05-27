@@ -23,6 +23,14 @@
     <%= f.label :address %><br>
     <%= f.text_field :address %>
   </div>
+  <div>
+    <%= f.label :password, "New Password" %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation, "New Password Confirmation" %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
 
   <% if current_user.is_admin.to_s == "true" %>
     <div>

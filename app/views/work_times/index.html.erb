@@ -7,7 +7,11 @@
 <% end %>
 <td> | <%= link_to "Log Out", logout_path, method: :delete %></td>
 
-<h1>Listing Employee Work Times</h1>
+<% if current_user.is_admin.to_s == "true" %>
+  <h1>Listing Employee Work Times</h1>
+<% else %>
+  <h1><%= "Listing #{@current_user.name}'s Work Times" %></h1>
+<% end %>
 
 <table>
   <thead>

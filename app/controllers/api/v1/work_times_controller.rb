@@ -1,6 +1,6 @@
 module API::V1
   class WorkTimesController < VersionController
-
+    before_action :correct_work_time, except: [:new]
     #GET /work_times
     #GET /work_times.json
     def index
@@ -96,6 +96,11 @@ module API::V1
     private
       def work_time_params
         params.require(:work_time).permit(:employee_id, :time_of_scan, :time_flag, :work_date)
+      end
+
+      def correct_work_time
+        work_time = WorkTime.find_or_initialize_by(employee_id: params[:employee_id])
+        redirect_to root_path, notice: "Can't do that!" unless ( work_time.employee_id == @current_user.id || @current_user.is_admin == "true" )
       end
   end
 end
