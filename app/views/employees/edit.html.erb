@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Editing Employee</h1>
 
 <%= form_for @employee, url: api_employee_path do |f| %>
@@ -47,6 +45,6 @@
 	<% if current_user.is_admin.to_s == "true" %>
     <%= link_to 'Back', api_employees_path %>
   <% else %>
-    <%= link_to 'Back to Home', root_path %>
+    <%= link_to 'Back to Home', home_path %>
   <% end %>
 <% end %>

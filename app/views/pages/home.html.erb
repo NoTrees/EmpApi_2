@@ -1,18 +1,7 @@
-<p id="notice"><%= notice %></p>
-
-<% if current_user.is_admin.to_s == "true" %>
-  <td><%= link_to "Admin #{current_user.name}'s Profile", api_employee_path(current_user) %></td>
-<% else %>
-  <td><%= link_to "#{current_user.name}'s Profile", api_employee_path(current_user) %></td>
-<% end %>
-<td> | <%= link_to "Log Out", logout_path, method: :delete %></td>
-
 <h1>Welcome!</h1>
 <p>
 	<% if current_user.is_admin.to_s == "true" %>
 	  Go to: <%= link_to "Employees list", api_employees_path%></br></br>
 	  Go to: <%= link_to "Employees Work Time list", api_work_times_path%>
-	<% else %>
-	  <td><%= link_to "Show my work times!", api_work_times_path(employee_id: @current_user.id) %></td>
 	<% end %>
 </p>

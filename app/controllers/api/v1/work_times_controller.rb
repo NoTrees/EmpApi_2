@@ -7,12 +7,16 @@ module API::V1
     #GET /work_times.json
     def index
       @work_times = WorkTime.all
+      @header_title = "All Employee"
 
       if employee_id = params[:employee_id]
+        employee = Employee.find(params[:employee_id])
+        @header_title = "#{employee.name}'s"
         @work_times = @work_times.where(employee_id: employee_id)
       end
 
       if work_date = params[:work_date]
+        @header_title = "All #{params[:work_date]} Dated"
         @work_times = @work_times.where(work_date: work_date)
       end      
 
@@ -31,6 +35,7 @@ module API::V1
 
     def show
       @work_time = WorkTime.find(params[:id])
+      @employee = Employee.find(@work_time.employee_id)
 
       respond_to do |format|
         format.html { render "work_times/show", status: :ok }

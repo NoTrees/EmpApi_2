@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   	if employee && employee.authenticate(params[:session][:password])
   		log_in employee
   		respond_to do |format|
-  			format.html { redirect_to root_path, notice: "Welcome #{current_user.name}!" }
+  			format.html { redirect_to home_path, notice: "Welcome #{current_user.name}!" }
   		end
   	else
   		respond_to do |format|

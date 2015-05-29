@@ -1,7 +1,8 @@
 require 'api_version'
 
 Rails.application.routes.draw do
-  root 'pages#home'
+  root 'api/v1/work_times#new'
+  get 'home' => 'pages#home'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'

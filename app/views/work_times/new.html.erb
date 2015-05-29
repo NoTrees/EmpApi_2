@@ -1,5 +1,3 @@
-<p><%= notice %></p>
-
 <h1>New Work Time</h1>
 
 <%= form_for @work_time, url: api_work_times_path do |f| %>
@@ -23,7 +21,7 @@
     <%= f.date_field :work_date %>
   </div>
 
-  <% if !current_user.nil? %>
+  <% unless current_user.nil? %>
     <% if current_user.is_admin != "true" %>
       <div>
         <%= f.label :password %><br>

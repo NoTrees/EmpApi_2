@@ -5,6 +5,18 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  	<p id="notice"><%= notice %></p>
+
+  	<% unless current_user.nil? %>
+	 	<% if current_user.is_admin.to_s == "true" %>
+		  <td><%= link_to "Admin #{current_user.name}'s Profile", api_employee_path(current_user) %></td>
+		<% else %>
+		  <td><%= link_to "#{current_user.name}'s Profile", api_employee_path(current_user) %></td>
+		<% end %>
+		<td> | <%= link_to "#{current_user.name}'s' Work Times", api_work_times_path(employee_id: @current_user.id)%></td>
+		<td> | <%= link_to "Log Out", logout_path, method: :delete %></td>
+	<% end %>
+
 </head>
 <body>
 

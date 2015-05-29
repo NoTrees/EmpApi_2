@@ -7,12 +7,15 @@ module API::V1
     #GET /employees.json
     def index
       @employees = Employee.all
+      @header_title = "All Employees"
 
       if division = params[:division]
+        @header_title = "All Employees Under #{params[:division]} Division"
         @employees = @employees.where(division: division)
       end
 
       if is_admin = params[:is_admin]
+        @header_title = "All Admin Employees"
         @employees = @employees.where(is_admin: is_admin)
       end
 

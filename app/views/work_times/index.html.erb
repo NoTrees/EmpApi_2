@@ -1,17 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<% if current_user.is_admin.to_s == "true" %>
-  <td><%= link_to "Admin #{current_user.name}'s Profile", api_employee_path(current_user) %></td>
-<% else %>
-  <td><%= link_to "#{current_user.name}'s Profile", api_employee_path(current_user) %></td>
-<% end %>
-<td> | <%= link_to "Log Out", logout_path, method: :delete %></td>
-
-<% if current_user.is_admin.to_s == "true" %>
-  <h1>Listing Employee Work Times</h1>
-<% else %>
-  <h1><%= "Listing #{@current_user.name}'s Work Times" %></h1>
-<% end %>
+<h1><%= "Listing #{@header_title} Work Times" %></h1>
 
 <table>
   <thead>
@@ -31,12 +18,10 @@
         <td><%= work_time.time_of_scan.strftime("%H:%M:%S") %></td>
         <td><%= work_time.time_flag %></td>
         <td><%= work_time.work_date %></td>
-        <% if logged_in? %>
-          <% if current_user.is_admin.to_s == "true" %>
-            <td><%= link_to 'Show', api_work_time_path(work_time) %></td>
-            <td> | <%= link_to 'Edit', edit_api_work_time_path(work_time) %></td>
-            <td> | <%= link_to 'Delete', api_work_time_path(work_time), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
+        <% if current_user.is_admin == "true" %>
+          <td><%= link_to 'Show', api_work_time_path(work_time) %></td>
+          <td> | <%= link_to 'Edit', edit_api_work_time_path(work_time) %></td>
+          <td> | <%= link_to 'Delete', api_work_time_path(work_time), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
     <% end %>
@@ -45,5 +30,7 @@
 
 <br>
 
-<%= link_to 'New Work Time', new_api_work_time_path %></br>
-<%= link_to 'Back to Home', root_path %>
+<% if current_user.is_admin == "true" %>
+  <%= link_to 'New Work Time', new_api_work_time_path %></br>
+<% end %>
+<%= link_to 'Back to Home', home_path %>
