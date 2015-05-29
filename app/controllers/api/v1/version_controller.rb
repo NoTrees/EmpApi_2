@@ -3,9 +3,8 @@ module API::V1
 		abstract!
 
 		before_action :set_api_version
-		before_action :logged_in_employee
 
-		private
+		protected
 			def logged_in_employee
 				unless logged_in?
 					respond_to do |format|
@@ -13,7 +12,8 @@ module API::V1
 					end
 				end
 			end
-			
+
+		private
 			def set_api_version
 				@api_version = 'One'
 			end

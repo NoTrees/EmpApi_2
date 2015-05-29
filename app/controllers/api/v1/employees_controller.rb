@@ -1,5 +1,6 @@
 module API::V1
   class EmployeesController < VersionController
+    before_action :logged_in_employee
     before_action :correct_employee
 
     #GET /employees

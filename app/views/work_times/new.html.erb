@@ -4,13 +4,13 @@
 
 <%= form_for @work_time, url: api_work_times_path do |f| %>
   <div>
-    <%= f.label :employee_id %><br>
+    <%= f.label :employee_id, "Employee ID" %><br>
     <%= f.text_field :employee_id %>
   </div>
 
   <div>
     <%= f.label :time_of_scan %><br>
-    <%= f.datetime_field :time_of_scan %>
+    <%= f.time_field :time_of_scan %>
   </div>
 
   <div>
@@ -23,25 +23,43 @@
     <%= f.date_field :work_date %>
   </div>
 
-  <% if current_user.is_admin != "true" %>
-    <div>
-      <%= f.label :password %><br>
-      <%= f.password_field :password %>
-    </div>
+  <% if !current_user.nil? %>
+    <% if current_user.is_admin != "true" %>
+      <div>
+        <%= f.label :password %><br>
+        <%= f.password_field :password %>
+      </div>
 
-    <div>
-      <%= f.label :password_confirmation %><br>
-      <%= f.password_field :password_confirmation %>
-    </div>
-  <% end %>
-  
-  </br><div>
-    <%= f.submit %>
-  </div></br>
+      <div>
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation %>
+      </div>
+    <% end %>
 
-  <% if current_user.is_admin.to_s == "true" %>
-    <%= link_to 'Back', api_work_times_path %>
+    </br><div>
+      <%= f.submit %>
+    </div></br>
+
+    <% if current_user.is_admin.to_s == "true" %>
+      <%= link_to 'Back', api_work_times_path %>
+    <% else %>
+      <%= link_to 'Back to my work times', api_work_times_path(employee_id: @current_user.id) %>
+    <% end %>
   <% else %>
-    <%= link_to 'Back to my work times', api_work_times_path(employee_id: @current_user.id) %>
+    <div>
+        <%= f.label :password %><br>
+        <%= f.password_field :password %>
+      </div>
+
+      <div>
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation %>
+      </div>
+
+      </br><div>
+        <%= f.submit %>
+      </div></br>
+
+      <%= link_to 'Log in?', login_path %>
   <% end %>
 <% end %>
