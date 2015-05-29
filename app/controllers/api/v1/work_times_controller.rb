@@ -1,6 +1,7 @@
 module API::V1
   class WorkTimesController < VersionController
-    before_action :correct_work_time, except: [:new]
+    before_action :correct_work_time, except: [:new, :create]
+
     #GET /work_times
     #GET /work_times.json
     def index
@@ -43,20 +44,29 @@ module API::V1
 
     #POST /work_time
     def create
+      employee = Employee.find_by(id: params[:work_time][:employee_id])
       @work_time = WorkTime.new(work_time_params)
-      if @work_time.save
-        respond_to do |format|
-          if current_user.is_admin == "true"
-            format.html { redirect_to api_work_times_path, notice: "work time created!" }  
-          else
-            format.html { redirect_to api_work_times_path(employee_id: @current_user.id), notice: "work time created!" }
+
+      if employee && employee.authenticate(params[:work_time][:password])
+        if @work_time.save
+          respond_to do |format|
+            if current_user.is_admin == "true"
+              format.html { redirect_to api_work_times_path, notice: "work time created!" }  
+            else
+              format.html { redirect_to api_work_times_path(employee_id: @current_user.id), notice: "work time created!" }
+            end
+            format.json { render json: @work_time, status: :created, location: [ :api, @work_time ] }
+            format.xml { render xml: @work_time, status: :created, location: [ :api, @work_time ] }
           end
-          format.json { render json: @work_time, status: :created, location: [ :api, @work_time ] }
-          format.xml { render xml: @work_time, status: :created, location: [ :api, @work_time ] }
+        else
+          respond_to do |format|
+            format.html { redirect_to new_api_work_time_path, notice: @work_time.errors }
+            format.json { render json: @work_time.errors, status: :unprocessable_entity }
+          end
         end
       else
         respond_to do |format|
-          format.html { redirect_to new_api_work_time_path, notice: @work_time.errors }
+          format.html { redirect_to new_api_work_time_path, notice: "Invalid ID and Password combination!" }
           format.json { render json: @work_time.errors, status: :unprocessable_entity }
         end
       end

@@ -7,20 +7,35 @@
     <%= f.label :employee_id %><br>
     <%= f.text_field :employee_id %>
   </div>
+
   <div>
     <%= f.label :time_of_scan %><br>
     <%= f.datetime_field :time_of_scan %>
   </div>
+
   <div>
     <%= f.label :time_flag %><br>
     <%= f.text_field :time_flag %>
   </div>
+
   <div>
     <%= f.label :work_date %><br>
     <%= f.date_field :work_date %>
-  </div></br>
+  </div>
+
+  <% if current_user.is_admin != "true" %>
+    <div>
+      <%= f.label :password %><br>
+      <%= f.password_field :password %>
+    </div>
+
+    <div>
+      <%= f.label :password_confirmation %><br>
+      <%= f.password_field :password_confirmation %>
+    </div>
+  <% end %>
   
-  <div>
+  </br><div>
     <%= f.submit %>
   </div></br>
 
