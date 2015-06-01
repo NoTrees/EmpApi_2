@@ -3,7 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>Employee Id</th>
+      <% if current_user.is_admin == "true" %>
+        <th>Employee Id</th>
+      <% end %>
       <th>Time of Scan</th>
       <th>Time Flag</th>
       <th>Work Date</th>
@@ -14,7 +16,9 @@
   <tbody>
     <% @work_times.each do |work_time| %>
       <tr>
-        <td><%= work_time.employee_id %></td>
+        <% if current_user.is_admin == "true" %>
+          <td><%= work_time.employee_id %></td>
+        <% end %>
         <td><%= work_time.time_of_scan.strftime("%H:%M:%S") %></td>
         <td><%= work_time.time_flag %></td>
         <td><%= work_time.work_date %></td>

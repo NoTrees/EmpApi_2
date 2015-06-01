@@ -9,11 +9,26 @@ module API::V1
       @work_times = WorkTime.all
       @header_title = "All Employee"
 
+      if id = params[:id]
+        @header_title = ""
+        @work_times = @work_times.where(id: id)
+      end
+
       if employee_id = params[:employee_id]
-        employee = Employee.find(params[:employee_id])
+        employee = Employee.find(employee_id)
         @header_title = "#{employee.name}'s"
         @work_times = @work_times.where(employee_id: employee_id)
       end
+
+      if time_of_scan = params[:time_of_scan]
+        @header_title = "All #{time_of_scan} timed"
+        @work_times = @work_times.where(employee_id: employee_id)
+      end            
+
+      if time_flag = params[:time_flag]
+        @header_title = "All #{employee.name}'s"
+        @work_times = @work_times.where(employee_id: employee_id)
+      end      
 
       if work_date = params[:work_date]
         @header_title = "All #{params[:work_date]} Dated"
@@ -30,7 +45,15 @@ module API::V1
     def new
       @work_time = WorkTime.new
 
-      render "work_times/new"
+      if current_user.nil?
+        respond_to do |format|
+          format.html { render "work_times/new" }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to home_path }
+        end
+      end
     end
 
     def show
@@ -65,12 +88,14 @@ module API::V1
             respond_to do |format|
               format.html { redirect_to new_api_work_time_path, notice: @work_time.errors.full_messages }
               format.json { render json: @work_time.errors, status: :unprocessable_entity }
+              format.xml { render xml: @work_time.errors, status: :unprocessable_entity }
             end
           end
         else
           respond_to do |format|
             format.html { redirect_to new_api_work_time_path, notice: "Invalid ID and Password combination!" }
             format.json { render json: @work_time.errors, status: :unprocessable_entity }
+            format.xml { render xml: @work_time.errors, status: :unprocessable_entity }
           end
         end
       else
@@ -78,23 +103,25 @@ module API::V1
           if @work_time.save
             respond_to do |format|
               if params[:work_time][:time_flag] == "logged_in"
-                format.html { redirect_to new_api_work_time_path, notice: "Work time created! Welcome #{employee.name}" }
+                format.html { redirect_to root_path, notice: "Work time created! Welcome #{employee.name}" }
               else
-                format.html { redirect_to new_api_work_time_path, notice: "Work time created! Goodbye #{employee.name}" }
+                format.html { redirect_to root_path, notice: "Work time created! Goodbye #{employee.name}" }
               end
               format.json { render json: @work_time, status: :created, location: [ :api, @work_time ] }
               format.xml { render xml: @work_time, status: :created, location: [ :api, @work_time ] }
             end
           else
             respond_to do |format|
-              format.html { redirect_to new_api_work_time_path, notice: @work_time.errors.full_messages }
+              format.html { redirect_to root_path, notice: @work_time.errors.full_messages }
               format.json { render json: @work_time.errors, status: :unprocessable_entity }
+              format.xml { render xml: @work_time.errors, status: :unprocessable_entity }
             end
           end
         else
           respond_to do |format|
-            format.html { redirect_to new_api_work_time_path, notice: "Invalid ID and Password combination!" }
+            format.html { redirect_to root_path, notice: "Invalid ID and Password combination!" }
             format.json { render json: @work_time.errors, status: :unprocessable_entity }
+            format.xml { render xml: @work_time.errors, status: :unprocessable_entity }
           end
         end
       end
@@ -113,11 +140,13 @@ module API::V1
         respond_to do |format|
           format.html { redirect_to api_work_time_path, notice: "Successfully edited work time!" }
           format.json { render json: @work_time, status: :ok }
+          format.xml { render xml: @work_time, status: :ok }
         end
       else
         respond_to do |format|
           format.html { redirect_to new_api_work_time_path, notice: @work_times.errors.full_messages }
           format.json { render json: @work_time.errors, status: :unprocessable_entity }
+          format.xml { render xml: @work_time.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -128,6 +157,7 @@ module API::V1
       respond_to do |format|
         format.html { redirect_to api_work_times_path, notice: "Successfully deleted work time!" }
         format.json { head :no_content }
+        format.xml { head :no_content }
       end
     end
 

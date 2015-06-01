@@ -9,6 +9,8 @@ module API::V1
 				unless logged_in?
 					respond_to do |format|
 						format.html { redirect_to login_path, notice: "Please Log in first." }
+						format.json { render json: "Cannot do that! Please login first" , status: :unauthorized }
+						format.xml { render xml: { error: 'Cannot do that! Please login first' } , status: :unauthorized }
 					end
 				end
 			end

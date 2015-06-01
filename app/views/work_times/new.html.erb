@@ -13,7 +13,7 @@
 
   <div>
     <%= f.label :time_flag %><br>
-    <%= f.text_field :time_flag %>
+    <%= f.collection_select :time_flag, WorkTime::TIME_FLAG, :to_s, :to_s %>
   </div>
 
   <div>
@@ -27,16 +27,7 @@
         <%= f.label :password %><br>
         <%= f.password_field :password %>
       </div>
-
-      <div>
-        <%= f.label :password_confirmation %><br>
-        <%= f.password_field :password_confirmation %>
-      </div>
     <% end %>
-
-    </br><div>
-      <%= f.submit %>
-    </div></br>
 
     <% if current_user.is_admin.to_s == "true" %>
       <%= link_to 'Back', api_work_times_path %>
@@ -45,19 +36,14 @@
     <% end %>
   <% else %>
     <div>
-        <%= f.label :password %><br>
-        <%= f.password_field :password %>
-      </div>
+      <%= f.label :password %><br>
+      <%= f.password_field :password %>
+    </div>
 
-      <div>
-        <%= f.label :password_confirmation %><br>
-        <%= f.password_field :password_confirmation %>
-      </div>
-
-      </br><div>
-        <%= f.submit %>
-      </div></br>
-
-      <%= link_to 'Log in?', login_path %>
+    </br><%= link_to 'Log in?', login_path %>
   <% end %>
+
+  </br></br><div>
+    <%= f.submit %>
+  </div>
 <% end %>

@@ -9,9 +9,24 @@ module API::V1
       @employees = Employee.all
       @header_title = "All Employees"
 
+      if id = params[:id]
+        @header_title = "All Employee with ID #{id}"
+        @employees = @employees.where(id: id)
+      end
+
+      if name = params[:name]
+        @header_title = "All Employees named #{name}"
+        @employees = @employees.where(name: name)
+      end
+
       if division = params[:division]
-        @header_title = "All Employees Under #{params[:division]} Division"
+        @header_title = "All Employees Under #{division} Division"
         @employees = @employees.where(division: division)
+      end
+
+      if address = params[:address]
+        @header_title = "All Employees with address #{address}"
+        @employees = @employees.where(address: address)
       end
 
       if is_admin = params[:is_admin]
@@ -56,6 +71,7 @@ module API::V1
           respond_to do |format|
             format.html { redirect_to new_api_employee_path, notice: @employee.errors.full_messages }
             format.json { render json: @employee.errors, status: :unprocessable_entity }
+            format.xml { render xml: @employee.errors, status: :unprocessable_entity }
           end
       end
     end
@@ -73,11 +89,13 @@ module API::V1
         respond_to do |format|
           format.html { redirect_to api_employee_path, notice: "Successfully Edited Employee!" }
           format.json { render json: @employee, status: :ok }
+          format.xml { render xml: @employee, status: :ok }
         end
       else
         respond_to do |format|
           format.html { redirect_to edit_api_employee_path(@employee), notice: @employee.errors.full_messages }
           format.json { render json: @employee.errors, status: :unprocessable_entity }
+          format.xml { render xml: @employee.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -88,6 +106,7 @@ module API::V1
       respond_to do |format|
         format.html { redirect_to api_employees_path, notice: "Successfully deleted employee!" }
         format.json { head :no_content }
+        format.xml { head :no_content }
       end
     end
 
