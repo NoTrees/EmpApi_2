@@ -1,44 +1,53 @@
 <h1>New Work Time</h1>
 
 <%= form_for @work_time, url: api_work_times_path do |f| %>
-  <div>
-    <%= f.label :employee_id, "Employee ID" %><br>
-    <%= f.text_field :employee_id %>
-  </div>
+  <% if current_user.nil? %>
+    <div>
+      <%= f.label :employee_id, "Employee ID" %><br>
+      <%= f.text_field :employee_id %>
+    </div>
 
-  <div>
-    <%= f.hidden_field :time_of_scan, value: "#{Time.now.in_time_zone("Singapore")}" %>
-  </div>
+    <div>
+      <%= f.hidden_field :time_of_scan, value: "#{Time.now.in_time_zone("Singapore")}" %>
+    </div>
 
-  <div>
-    <%= f.hidden_field :work_date, value: "#{Date.current}" %>
-  </div>
+    <div>
+      <%= f.hidden_field :work_date, value: "#{Date.current}" %>
+    </div>
 
-  <div>
-    <%= f.label :time_flag %><br>
-    <%= f.collection_select :time_flag, WorkTime::TIME_FLAG, :to_s, :to_s %>
-  </div>
+    <div>
+      <%= f.label :time_flag %><br>
+      <%= f.collection_select :time_flag, WorkTime::TIME_FLAG, :to_s, :to_s %>
+    </div>
 
-  <% unless current_user.nil? %>
-    <% if current_user.is_admin != "true" %>
-      <div>
-        <%= f.label :password %><br>
-        <%= f.password_field :password %>
-      </div>
-    <% end %>
-
-    <% if current_user.is_admin.to_s == "true" %>
-      <%= link_to 'Back', api_work_times_path %>
-    <% else %>
-      <%= link_to 'Back to my work times', api_work_times_path(employee_id: @current_user.id) %>
-    <% end %>
-  <% else %>
     <div>
       <%= f.label :password %><br>
       <%= f.password_field :password %>
     </div>
 
-    </br><%= link_to 'Log in?', login_path %>
+    <br><%= link_to 'Log in?', login_path %>
+  <% else %>
+    <div>
+      <%= f.label :employee_id, "Employee ID" %><br>
+      <%= f.text_field :employee_id %>
+     </div>
+
+     <div>
+       <%= f.label :time_of_scan %><br>
+       <%= f.time_field :time_of_scan %>
+     </div>
+
+     <div>
+       <%= f.label :work_date %><br>
+       <%= f.date_field :work_date %>
+     </div>
+
+     <div>
+       <%= f.label :time_flag %><br>
+       <%= f.collection_select :time_flag, WorkTime::TIME_FLAG, :to_s, :to_s %>
+     </div>
+
+     <br><%= link_to 'Back', api_work_times_path %>
   <% end %>
 
   </br></br><div>

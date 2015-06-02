@@ -45,7 +45,7 @@ module API::V1
     def new
       @work_time = WorkTime.new
 
-      if current_user.nil?
+      if current_user.nil? || current_user.is_admin == "true"
         respond_to do |format|
           format.html { render "work_times/new" }
         end
