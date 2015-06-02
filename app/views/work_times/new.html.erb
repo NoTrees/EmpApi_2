@@ -7,16 +7,16 @@
   </div>
 
   <div>
-    <%= f.hidden_field :time_of_scan, value: "#{Time.now.strftime("%H:%M:%S")}" %>
+    <%= f.hidden_field :time_of_scan, value: "#{Time.now.in_time_zone("Singapore")}" %>
+  </div>
+
+  <div>
+    <%= f.hidden_field :work_date, value: "#{Date.current}" %>
   </div>
 
   <div>
     <%= f.label :time_flag %><br>
     <%= f.collection_select :time_flag, WorkTime::TIME_FLAG, :to_s, :to_s %>
-  </div>
-
-  <div>
-    <%= f.hidden_field :work_date, value: "#{Date.current}" %>
   </div>
 
   <% unless current_user.nil? %>
