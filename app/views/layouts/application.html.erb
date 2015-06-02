@@ -2,11 +2,34 @@
 <html>
 <head>
   <title>EmpApi</title>
+  <script type="text/javascript">
+  	function startTime(){
+  		var today=new Date();
+		var h=today.getHours();
+		var m=today.getMinutes();
+		var s=today.getSeconds();
+		var D=today.getDate();
+		var M=today.getMonth();
+		var Y=today.getFullYear();
+		m=checkFormat(m);
+		s=checkFormat(s);
+		D=checkFormat(D);
+		M=checkFormat(M);
+		document.getElementById('date_time_now').innerHTML="Time now is "+h+":"+m+":"+s+" | "+"Date today is "+M+"-"+D+"-"+Y;
+		t=setTimeout('startTime()', 500);
+  	}
+
+  	function checkFormat(i) {
+		if (i<10){
+			i="0" + i;
+		}
+		return i;
+	}
+  </script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <p id="notice"><%= notice %></p>
-
+  <%= notice %><br>
   	<% unless current_user.nil? %>
 	 	<% if current_user.is_admin.to_s == "true" %>
 		  <td><%= link_to "Admin #{current_user.name}'s Profile", api_employee_path(current_user) %></td>
@@ -15,10 +38,10 @@
 		<% end %>
 		<td> | <%= link_to "#{current_user.name}'s' Work Times", api_work_times_path(employee_id: @current_user.id)%></td>
 		<td> | <%= link_to "Log Out", logout_path, method: :delete %></td>
-	<% end %>
-
+	<% end %><br>
 </head>
-<body>
+<body onload="startTime()">
+<div id="date_time_now"></div>
 
 <%= yield %>
 
