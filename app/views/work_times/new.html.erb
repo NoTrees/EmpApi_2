@@ -7,8 +7,7 @@
   </div>
 
   <div>
-    <%= f.label :time_of_scan %><br>
-    <%= f.time_field :time_of_scan %>
+    <%= f.hidden_field :time_of_scan, value: "#{Time.now.strftime("%H:%M:%S")}" %>
   </div>
 
   <div>
@@ -17,8 +16,7 @@
   </div>
 
   <div>
-    <%= f.label :work_date %><br>
-    <%= f.date_field :work_date %>
+    <%= f.hidden_field :work_date, value: "#{Date.current}" %>
   </div>
 
   <% unless current_user.nil? %>
