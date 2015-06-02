@@ -168,7 +168,7 @@ module API::V1
 
       def correct_work_time
         work_time = WorkTime.find_or_initialize_by(employee_id: params[:employee_id])
-        redirect_to root_path, notice: "Can't do that!" unless ( work_time.employee_id == @current_user.id || @current_user.is_admin == "true" )
+        redirect_to home_path, notice: "Can't do that!" unless ( work_time.employee_id == @current_user.id || current_user.is_admin == "true" )
       end
   end
 end

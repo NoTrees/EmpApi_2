@@ -1,7 +1,7 @@
 <h1>Editing Employee</h1>
 
 <%= form_for @employee, url: api_employee_path do |f| %>
-  <% if current_user.is_admin.to_s == "true" %>
+  <% if current_user.is_admin == "true" %>
     <div>
       <%= f.label :id %><br>
       <%= f.text_field :id %>
@@ -11,7 +11,7 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <% if current_user.is_admin.to_s == "true" %>
+  <% if current_user.is_admin == "true" %>
     <div>
       <%= f.label :division %><br>
       <%= f.text_field :division %>
@@ -30,9 +30,9 @@
     <%= f.password_field :password_confirmation %>
   </div>
 
-  <% if current_user.is_admin.to_s == "true" %>
+  <% if current_user.is_admin == "true" %>
     <div>
-      <%= f.label :is_admin %><br>
+      <%= f.label :is_admin, "Make Admin?" %><br>
       <%= f.text_field :is_admin %>
     </div>
   <% end %>
@@ -42,7 +42,7 @@
   </div></br>
 
 	<%= link_to 'Show Profile', api_employee_path(@employee) %> |
-	<% if current_user.is_admin.to_s == "true" %>
+	<% if current_user.is_admin == "true" %>
     <%= link_to 'Back', api_employees_path %>
   <% else %>
     <%= link_to 'Back to Home', home_path %>

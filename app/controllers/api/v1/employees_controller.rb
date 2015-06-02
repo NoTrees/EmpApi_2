@@ -112,12 +112,12 @@ module API::V1
 
     private
       def employee_params
-        params.require(:employee).permit(:id, :name, :division, :authentication, :address, :password, :password_confirmation, :is_admin)
+        params.require(:employee).permit(:id, :name, :division, :address, :password, :password_confirmation, :is_admin)
       end
 
       def correct_employee
         employee = Employee.find_by(id: params[:id])
-        redirect_to root_path, notice: "Can't do that!" unless ( employee == @current_user || @current_user.is_admin == "true" )
+        redirect_to home_path, notice: "Can't do that!" unless ( employee == @current_user || current_user.is_admin == "true" )
       end
   end
 end
