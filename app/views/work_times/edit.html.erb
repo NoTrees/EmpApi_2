@@ -11,7 +11,7 @@
   </div>
   <div>
     <%= f.label :time_flag %><br>
-    <%= f.text_field :time_flag %>
+    <%= f.collection_select :time_flag, WorkTime::TIME_FLAG, :to_s, :to_s %>
   </div>
   <div>
     <%= f.label :work_date %><br>
