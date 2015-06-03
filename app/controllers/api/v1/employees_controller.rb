@@ -117,7 +117,7 @@ module API::V1
 
       def correct_employee
         employee = Employee.find_by(id: params[:id])
-        redirect_to home_path, notice: "Can't do that!" unless ( employee == @current_user || current_user.is_admin == "true" )
+        redirect_to home_path, notice: "Can't do that!" unless ( employee == @current_user || admin_mode? )
       end
   end
 end

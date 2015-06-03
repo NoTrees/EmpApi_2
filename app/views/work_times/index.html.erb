@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <% if current_user.is_admin == "true" %>
+      <% if admin_mode? %>
         <th>Employee Id</th>
       <% end %>
       <th>Time of Scan</th>
@@ -14,15 +14,15 @@
   </thead>
 
   <tbody>
-    <% @work_times.each do |work_time| %>
+    <% @work_times.reverse.each do |work_time| %>
       <tr>
-        <% if current_user.is_admin == "true" %>
+        <% if admin_mode? %>
           <td><%= work_time.employee_id %></td>
         <% end %>
         <td><%= work_time.time_of_scan.strftime("%H:%M:%S") %></td>
         <td><%= work_time.time_flag %></td>
         <td><%= work_time.work_date %></td>
-        <% if current_user.is_admin == "true" %>
+        <% if admin_mode? %>
           <td><%= link_to 'Show', api_work_time_path(work_time) %></td>
           <td> | <%= link_to 'Edit', edit_api_work_time_path(work_time) %></td>
           <td> | <%= link_to 'Delete', api_work_time_path(work_time), method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -34,7 +34,9 @@
 
 <br>
 
-<% if current_user.is_admin == "true" %>
+<% if admin_mode? %>
   <%= link_to 'New Work Time', root_path %></br>
+  <%= link_to 'Show Today\'s Work Times', api_work_times_path(work_date: "#{Date.current}") %></br>
+  <%= link_to 'Show all Work Times', api_work_times_path %></br>
 <% end %>
 <%= link_to 'Back to Home', home_path %>

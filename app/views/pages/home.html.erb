@@ -1,6 +1,6 @@
 <h1>Welcome!</h1>
 <p>
-	<% if current_user.is_admin == "true" %>
+	<% if admin_mode? %>
 	  Go to: <%= link_to "Employees list", api_employees_path%></br></br>
 	  Go to: <%= link_to "Employees Work Time list", api_work_times_path%>
 	<% end %>

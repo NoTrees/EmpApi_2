@@ -45,7 +45,7 @@ module API::V1
     def new
       @work_time = WorkTime.new
 
-      if current_user.nil? || current_user.is_admin == "true"
+      if current_user.nil? || admin_mode?
         respond_to do |format|
           format.html { render "work_times/new" }
         end
@@ -73,10 +73,10 @@ module API::V1
       @work_time = WorkTime.new(work_time_params)
 
       unless current_user.nil?
-        if (employee && employee.authenticate(params[:work_time][:password])) || @current_user.is_admin == "true"
+        if (employee && employee.authenticate(params[:work_time][:password])) || admin_mode?
           if @work_time.save
             respond_to do |format|
-              if current_user.is_admin == "true"
+              if admin_mode?
                 format.html { redirect_to api_work_times_path, notice: "work time created!" }  
               else
                 format.html { redirect_to api_work_times_path(employee_id: @current_user.id), notice: "work time created!" }
@@ -168,7 +168,7 @@ module API::V1
 
       def correct_work_time
         work_time = WorkTime.find_or_initialize_by(employee_id: params[:employee_id])
-        redirect_to home_path, notice: "Can't do that!" unless ( work_time.employee_id == @current_user.id || current_user.is_admin == "true" )
+        redirect_to home_path, notice: "Can't do that!" unless ( work_time.employee_id == @current_user.id || admin_mode? )
       end
   end
 end

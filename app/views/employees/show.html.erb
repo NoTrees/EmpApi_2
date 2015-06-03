@@ -21,7 +21,7 @@
 </p>
 
 <%= link_to 'Edit', edit_api_employee_path(@employee) %>
-<% if current_user.is_admin == "true" %>
+<% if admin_mode? %>
   | <%= link_to 'Back', api_employees_path %>
 <% else %>
   | <%= link_to 'Back to Home', home_path %>

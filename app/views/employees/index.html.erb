@@ -8,7 +8,7 @@
       <th>Division</th>
       <th>Address</th>
       <% if logged_in? %>
-        <% if current_user.is_admin == "true" %>
+        <% if admin_mode? %>
           <th>Admin Access?</th>
         <% end %>
       <% end %>
@@ -23,7 +23,7 @@
         <td><%= employee.name %></td>
         <td><%= employee.division %></td>
         <td><%= employee.address %></td>
-        <% if current_user.is_admin == "true" %>
+        <% if admin_mode? %>
           <td><%= employee.is_admin %></td>
           <td><%= link_to 'Show', api_employee_path(employee) %></td>
           <td> | <%= link_to 'Edit', edit_api_employee_path(employee) %></td>
@@ -36,7 +36,7 @@
 
 <br>
 
-<% if current_user.is_admin == "true" %>
+<% if admin_mode? %>
   <%= link_to 'New Employee', new_api_employee_path %></br>
 <% end %>
 <%= link_to 'Back to Home', home_path %>

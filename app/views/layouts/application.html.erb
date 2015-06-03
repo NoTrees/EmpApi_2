@@ -31,7 +31,7 @@
   <%= csrf_meta_tags %>
   <%= notice %><br>
   	<% unless current_user.nil? %>
-	 	<% if current_user.is_admin == "true" %>
+	 	<% if admin_mode? %>
 		  <td><%= link_to "Admin #{current_user.name}'s Profile", api_employee_path(current_user) %></td>
 		<% else %>
 		  <td><%= link_to "#{current_user.name}'s Profile", api_employee_path(current_user) %></td>

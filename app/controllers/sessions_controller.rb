@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
       else
         if employee.is_admin == "true"
           log_in employee
+          admin_mode("true")
           respond_to do |format|
             format.html { redirect_to home_path, notice: "Welcome Admin #{current_user.name}!" }
           end
