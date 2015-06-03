@@ -33,7 +33,7 @@
   <% if admin_mode? %>
     <div>
       <%= f.label :is_admin, "Make Admin?" %><br>
-      <%= f.text_field :is_admin %>
+      <%= f.collection_select :is_admin, Employee::IS_ADMIN, :to_s, :to_s %>
     </div>
   <% end %>
 

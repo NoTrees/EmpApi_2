@@ -1,5 +1,5 @@
 class Employee < ActiveRecord::Base
-  # set choices for the dropdown menu in creation and editing of employees
+  # set choices for the dropdown menu in the editing of employees
   IS_ADMIN = ['true', 'false']
 
   # set relationship of employee and work time
