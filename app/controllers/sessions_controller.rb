@@ -32,8 +32,8 @@ class SessionsController < ApplicationController
           # log_in method is in sessions helper in app/helpers
           log_in employee
           # makes so that the admin is logging in by making the session an admin session
-          # admin_mode is in sessions helper in app/helpers
-          admin_mode("true")
+          # admin_session is in sessions helper in app/helpers
+          admin_session("true")
           respond_to do |format|
             # HTML redirects to home page and gives a welcome notice
             format.html { redirect_to home_path, notice: "Welcome Admin #{current_user.name}!" }

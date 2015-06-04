@@ -3,13 +3,13 @@ module SessionsHelper
 	# sets admin mode variable to a certain value
 	# used to see if user logs in as an admin or not
 	# default value is always false
-	def admin_mode(value = "false")
-		$admin_mode = value
+	def admin_session(value = "false")
+		session[:admin_session] = value
 	end
 
 	# checks and returns a boolean value if admin mode is enabled or not
 	def admin_mode?
-		$admin_mode == "true"
+		session[:admin_session] == "true"
 	end
 
 	# sets the current session ID to the employee's ID
@@ -23,7 +23,7 @@ module SessionsHelper
 	def log_out
 		session.delete(:id)
 		@current_user = nil
-		admin_mode(false)
+		admin_session(false)
 	end
 
 	# current user is set as the employee who logged in
