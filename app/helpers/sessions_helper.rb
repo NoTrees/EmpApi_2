@@ -1,8 +1,7 @@
 module SessionsHelper
 	
-	# sets admin mode variable to a certain value
 	# used to see if user logs in as an admin or not
-	# default value is always false
+	# default value is false
 	def admin_session(value = "false")
 		session[:admin_session] = value
 	end

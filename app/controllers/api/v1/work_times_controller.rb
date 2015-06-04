@@ -61,7 +61,11 @@ module API::V1
       # filter list according to the date of creation of the work time
       # format: YYYY-MM-DD
       if work_date = params[:work_date]
-        @header_title = "All #{params[:work_date]} Dated"
+        if params[:work_date] = Date.current
+          @header_title = "Today's"
+        else
+          @header_title = "All #{params[:work_date]} Dated"
+        end
         @work_times = @work_times.where(work_date: work_date)
       end      
 
